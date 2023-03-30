@@ -14,5 +14,26 @@
     align-items: center;
     padding-top: 220px;
     padding-bottom: 40px;
-    background-color: #e3f2fd   !important;
+    background-color: #f5f5f5    !important;
   }  
+
+  .card {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: transform 0.3s;
+  }
+  
+  .card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    transform: scale(1.05);
+  }
+  
+  .card-container {
+    margin-bottom: 15px;
+  }
+  
+  @media (min-width: 576px) {
+    .card-container {
+      margin-bottom: 0;
+    }
+  }
+  

@@ -1,0 +1,2 @@
+from application.models.context import create_production_database
+create_production_database()

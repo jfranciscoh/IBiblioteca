@@ -1,53 +1,130 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login - Sistema de Biblioteca</title>
-  <!-- Cargar Bootstrap -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css"
-    integrity="sha512-uxJhgwGZtjKZ/kz+r68ByMk9O5u0y+gV7G1rE5rVH2OGjZC13V7xrsxJUNz9oNyJ1DyBQ2vKTYI6+8dO/EJVOA=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <!-- Estilo de fondo para el formulario -->
-  <style>
-    body {
-      background-image: url('https://images.unsplash.com/photo-1557683311-eac922347aa1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1129&q=80');
-      background-size: cover;
-    }
-  </style>
-</head>
-<body>
-  <div class="container-fluid h-100">
-    <div class="row justify-content-center align-items-center h-100">
-      <div class="col-md-4">
-        <div class="card">
-          <div class="card-body">
-            <h3 class="card-title text-center mb-4">Iniciar sesión</h3>
-            <form>
-              <div class="form-floating mb-3">
-                <input type="email" class="form-control" id="email" placeholder="Correo electrónico">
-                <label for="email">Correo electrónico</label>
-              </div>
-              <div class="form-floating mb-3">
-                <input type="password" class="form-control" id="password" placeholder="Contraseña">
-                <label for="password">Contraseña</label>
-              </div>
-              <div class="form-check mb-3">
-                <input class="form-check-input" type="checkbox" value="" id="remember">
-                <label class="form-check-label" for="remember">Recordar mi sesión</label>
-              </div>
-              <div class="d-grid">
-                <button type="submit" class="btn btn-primary">Iniciar sesión</button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
+<!doctype html>
+<html lang="en" data-bs-theme="auto">
+  <head><script src="../assets/js/color-modes.js"></script>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.111.3">
+    <title>Signin Template · Bootstrap v5.3</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/sign-in/">
+
+    
+
+    
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
+      .b-example-divider {
+        width: 100%;
+        height: 3rem;
+        background-color: rgba(0, 0, 0, .1);
+        border: solid rgba(0, 0, 0, .15);
+        border-width: 1px 0;
+        box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+      }
+
+      .b-example-vr {
+        flex-shrink: 0;
+        width: 1.5rem;
+        height: 100vh;
+      }
+
+      .bi {
+        vertical-align: -.125em;
+        fill: currentColor;
+      }
+
+      .nav-scroller {
+        position: relative;
+        z-index: 2;
+        height: 2.75rem;
+        overflow-y: hidden;
+      }
+
+      .nav-scroller .nav {
+        display: flex;
+        flex-wrap: nowrap;
+        padding-bottom: 1rem;
+        margin-top: -1px;
+        overflow-x: auto;
+        text-align: center;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .btn-bd-primary {
+        --bd-violet-bg: #712cf9;
+        --bd-violet-rgb: 112.520718, 44.062154, 249.437846;
+
+        --bs-btn-font-weight: 600;
+        --bs-btn-color: var(--bs-white);
+        --bs-btn-bg: var(--bd-violet-bg);
+        --bs-btn-border-color: var(--bd-violet-bg);
+        --bs-btn-hover-color: var(--bs-white);
+        --bs-btn-hover-bg: #6528e0;
+        --bs-btn-hover-border-color: #6528e0;
+        --bs-btn-focus-shadow-rgb: var(--bd-violet-rgb);
+        --bs-btn-active-color: var(--bs-btn-hover-color);
+        --bs-btn-active-bg: #5a23c8;
+        --bs-btn-active-border-color: #5a23c8;
+      }
+      .bd-mode-toggle {
+        z-index: 1500;
+      }
+    </style>
+
+    
+    <!-- Custom styles for this template -->
+    <link href="../css/sign-in.css" rel="stylesheet">
+  </head>
+  <body class="text-center">
+
+
+   
+
+    
+<main class="form-signin w-100 m-auto">
+  <form>
+    <img class="mb-4" src="https://cdn-icons-png.flaticon.com/512/3330/3330317.png" alt="" width="100" height="100">
+    <h1 class="h3 mb-3 fw-normal"></h1>
+
+    <div class="form-floating">
+      <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+      <label for="floatingInput">Usuario</label>
     </div>
-  </div>
-  <!-- Cargar los scripts de Bootstrap -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.min.js"
-    integrity="sha512-7ZmYX9uK7sIzLc0sTyqH1xxgCJPrq3dDx/AyB6lYU6LvBuU6pTPUwgKBaZFLrG9rTcCh6T1TfTQOdG4P4w4bVQ=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-</body>
+    <div class="form-floating">
+      <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+      <label for="floatingPassword">Contraseña</label>
+    </div>
+
+    <div class="checkbox mb-3">
+      <label>
+      </label>
+    </div>
+    <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+  </form>
+</main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
+
+
+    
+  </body>
 </html>

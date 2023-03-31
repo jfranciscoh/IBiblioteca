@@ -15,7 +15,18 @@ init_db()
 app = Flask(__name__)
 app.secret_key = 'mysecretkey'
 
-    
+
+
+def is_anonymous_authorized_pages(endpoint):
+	return (endpoint == 'incio' \
+       or endpoint == 'auth_login'\
+       or endpoint == 'static')
+
+@app.before_request
+def auth():
+       if is_anonymous_authorized_pages(request.endpoint) == False:
+             if 'username' not in session:
+                    return render_template("index.html"), 403
 @app.route('/')
 def incio():
     return render_template('index.html')

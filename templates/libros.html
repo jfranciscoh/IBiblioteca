@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Libros</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"  crossorigin="anonymous" />
+    <link href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css " rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css" rel="stylesheet">
+
+  </head>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="/libros">
+        <i class="fas fa-book" style="color: #fcfcfc;"></i>        
+        Libros
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link active" href="/menu">Menu</a>
+          </li>
+          <!-- <li class="nav-item">
+            <a class="nav-link" href="#">Books</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">About</a>
+          </li> -->
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+  <body>
+    
+    <div style="width: 80%; margin: 0 auto; margin-top: 10%;">
+        <button type="button" class="btn btn-primary mb-4 " data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <i class="fas fa-plus"></i> Agregar Libro
+          </button>
+        <table id="example" class="table table-striped" style="width: 100%">
+          <thead>
+            <tr>
+                
+              <th>Identificador</th>
+              <th>Titulo</th>
+              <th>Autor</th>
+              <th>Ubicacion</th>
+              <th>Unidades</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for libro in libros %}
+            <tr>
+              <td>{{ libro.id }}</td>
+              <td>{{ libro.titulo }}</td>
+              <td>{{ libro.autor }}</td>
+              <td>{{ libro.ubicacion }}</td>
+              <td>{{ libro.unidades }}</td>
+              <td>
+                    <button type="button" class="btn btn-primary btn-sm" onclick="addunits({{ libro.id }})">
+                       <i class="fas fa-book-alt"></i> Agregar Unidades
+                      </button>
+              </td>
+            </tr>
+            {% endfor %}
+            
+          </tbody>
+        </table>
+      </div>
+     
+      <!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Nuevo Libro</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="mb-3">
+              <label for="titulo" class="form-label">Título</label>
+              <input type="text" class="form-control" id="titulo" name="titulo" required>
+            </div>
+            <div class="mb-3">
+              <label for="autor" class="form-label">Autor</label>
+              <input type="text" class="form-control" id="autor" name="autor" required>
+            </div>
+            <div class="mb-3">
+              <label for="unidades" class="form-label">Unidades</label>
+              <input type="number" class="form-control" id="unidades" name="unidades" required>
+            </div>
+            <div class="mb-3">
+              <label for="ubicacion" class="form-label">Ubicación</label>
+              <input type="text" class="form-control" id="ubicacion" name="ubicacion" required>
+            </div>
+            <div class="alert alert-danger" role="alert" style="display:none;">
+            Oh no! Parece que alguien ya agregó ese libro. ¡Intenta agregar algo nuevo a tu colección!
+            <i class="far fa-grin-beam-sweat"></i>
+            </div>
+            
+              
+              
+          </form>
+          <button type="submit" class="btn btn-primary" onclick="addbook()">Guardar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+      
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap5.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#example').DataTable();
+        }); 
+
+        function addbook() {
+            $.ajax({
+                url: '/addbook',
+                type: 'POST',
+                dataType: 'json',
+                data: $("form").serialize(),
+                success: function (data) {
+                    document.location = '/libros';
+                },
+                error: function (xhr, status, error) {
+                    if (xhr.status == 400) {
+                        $(".alert").show();
+                        $("form input[type=text], form input[type=number]").val("");
+                    }
+                },
+                statusCode: {
+                    409: function() {
+                        $(".alert").show();
+                        $("form input[type=text], form input[type=number]").val("");
+                    }
+                }
+            });
+        }
+
+
+
+      function addunits(id,unidades) {
+        $.ajax({
+            type: "POST",
+            url: "/agregarunidades",
+            data: {
+            id: id,
+            unidades:1
+            },
+            success: function (response) {
+                document.location = '/libros';
+            },
+            error: function (error) {
+            // Manejar el error aquí
+            },
+        });
+        }
+
+  
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
+  </body>
+</html>

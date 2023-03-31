@@ -7,6 +7,7 @@ from models.usuario import Usuario, create_user
 import json
 from services.alchemy_encoder import AlchemyEncoder
 from models.context import init_db
+from models.libros import Libro
 from typing import Dict, List
 
 init_db()
@@ -38,6 +39,33 @@ def auth_register():
             return json.dumps(user, cls=AlchemyEncoder), 200
     return "Bad request : 400", 400
 
+@app.route('/addbook', methods=['POST'])
+def add_book():
+    parameters = request.form
+    if('titulo' in parameters and 'autor'  in parameters and 'unidades' in parameters and 'ubicacion' in parameters):
+        with Session() as db_context:
+            # Verificar si el título ya existe
+            existing_book = db_context.query(Libro).filter_by(titulo=parameters['titulo']).first()
+            if existing_book:
+                return "El libro ya existe", 400
+            # Si el título no existe, agregar el libro a la base de datos
+            book = Libro()
+            book.titulo = parameters['titulo']
+            book.autor = parameters['autor']
+            book.unidades = parameters['unidades']
+            book.ubicacion = parameters['ubicacion']
+            db_context.add(book)
+            db_context.commit()
+            return json.dumps(book, cls=AlchemyEncoder), 200
+    return "Bad request : 400", 400
+
+
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect('/')
+
+
 
 @app.route('/login', methods=['POST'])
 def auth_login():
@@ -56,9 +84,32 @@ def auth_login():
                 return request.environ.get('HTTP_ORIGIN', 'default value'), 400
     return "Bad request : 400", 400
 
+@app.route('/agregarunidades', methods=['POST'])
+def agregar_unidades():
+    parameters = request.form
+    if('id' in parameters and 'unidades' in parameters):
+        with Session() as db_context:
+            book = db_context.query(Libro).filter(Libro.id == parameters['id']).one_or_none()
+            if book:
+                book.unidades = book.unidades + int(parameters['unidades'])
+                db_context.commit()
+                return json.dumps(book, cls=AlchemyEncoder), 200
+            else:
+                return "NOK", 400
+    return "Bad request : 400", 400
+
 @app.route('/menu')
 def menu():
     return render_template('menu.html')
+
+@app.route('/libros', methods=['GET'])
+def libros():
+     with Session() as db_context:
+        libros = db_context.query(Libro).all()
+        return render_template('libros.html', libros=libros)
+
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)

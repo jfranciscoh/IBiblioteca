@@ -50,10 +50,11 @@ def auth_register():
             return json.dumps(user, cls=AlchemyEncoder), 200
     return "Bad request : 400", 400
 
+
 @app.route('/addbook', methods=['POST'])
 def add_book():
     parameters = request.form
-    if('titulo' in parameters and 'autor'  in parameters and 'unidades' in parameters and 'ubicacion' in parameters):
+    if('titulo' in parameters and 'autor' in parameters and 'unidades' in parameters and 'ubicacion' in parameters and 'editorial' in parameters and 'año' in parameters):
         with Session() as db_context:
             # Verificar si el título ya existe
             existing_book = db_context.query(Libro).filter_by(titulo=parameters['titulo']).first()
@@ -61,14 +62,39 @@ def add_book():
                 return "El libro ya existe", 400
             # Si el título no existe, agregar el libro a la base de datos
             book = Libro()
-            book.titulo = parameters['titulo']
+            book.titulo = f"{parameters['titulo']} - {parameters['editorial']} - {parameters['año']}"
             book.autor = parameters['autor']
+            book.año = parameters['año']
+            book.editorial = parameters['editorial']
             book.unidades = parameters['unidades']
             book.ubicacion = parameters['ubicacion']
             db_context.add(book)
             db_context.commit()
             return json.dumps(book, cls=AlchemyEncoder), 200
-    return "Bad request : 400", 400
+    return "Solicitud incorrecta", 400
+
+
+# @app.route('/addbook', methods=['POST'])
+# def add_book():
+#     parameters = request.form
+#     if('titulo' in parameters and 'autor'  in parameters and 'unidades' in parameters and 'ubicacion' in parameters):
+#         with Session() as db_context:
+#             # Verificar si el título ya existe
+#             existing_book = db_context.query(Libro).filter_by(titulo=parameters['titulo']).first()
+#             if existing_book:
+#                 return "El libro ya existe", 400
+#             # Si el título no existe, agregar el libro a la base de datos
+#             book = Libro()
+#             book.titulo = parameters['titulo']
+#             book.autor = parameters['autor']
+#             book.año = parameters['año']
+#             book.editorial = parameters['editorial']
+#             book.unidades = parameters['unidades']
+#             book.ubicacion = parameters['ubicacion']
+#             db_context.add(book)
+#             db_context.commit()
+#             return json.dumps(book, cls=AlchemyEncoder), 200
+#     return "Bad request : 400", 400
 
 
 @app.route('/logout')

@@ -44,9 +44,11 @@
           <thead>
             <tr>
                 
-              <th>Identificador</th>
+              <th style="width: 10px;">Id</th>
               <th>Titulo</th>
               <th>Autor</th>
+              <th>Editorial</th>
+              <th>Año</th>
               <th>Ubicacion</th>
               <th>Unidades</th>
               <th>Acciones</th>
@@ -58,11 +60,13 @@
               <td>{{ libro.id }}</td>
               <td>{{ libro.titulo }}</td>
               <td>{{ libro.autor }}</td>
+              <td>{{ libro.editorial }}</td>
+              <td>{{ libro.año }}</td>
               <td>{{ libro.ubicacion }}</td>
               <td>{{ libro.unidades }}</td>
               <td>
                     <button type="button" class="btn btn-primary btn-sm" onclick="addunits({{ libro.id }})">
-                       <i class="fas fa-book-alt"></i> Agregar Unidades
+                      <i class="fas fa-plus"></i> Unidad
                       </button>
               </td>
             </tr>
@@ -89,6 +93,14 @@
             <div class="mb-3">
               <label for="autor" class="form-label">Autor</label>
               <input type="text" class="form-control" id="autor" name="autor" required>
+            </div>
+            <div class="mb-3">
+              <label for="año" class="form-label">Año</label>
+              <input type="number" class="form-control" id="año" name="año" required>
+            </div>
+            <div class="mb-3">
+              <label for="editorial" class="form-label">Editorial</label>
+              <input type="text" class="form-control" id="editorial" name="editorial" required>
             </div>
             <div class="mb-3">
               <label for="unidades" class="form-label">Unidades</label>

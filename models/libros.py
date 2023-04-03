@@ -11,6 +11,8 @@ class Libro(Base):
     id =  Column(Integer, primary_key=True)
     titulo = Column (String (300))
     autor = Column (String (300))  
+    año = Column (Integer)
+    editorial = Column (String (300))
     unidades = Column (Integer) 
     ubicacion = Column (String (100))  
 

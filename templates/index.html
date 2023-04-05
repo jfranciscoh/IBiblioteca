@@ -98,7 +98,8 @@
   <body class="text-center">
 
 
-   
+    <!-- <p id="cita"></p> -->
+
 
     
 <main class="form-signin w-100 m-auto">
@@ -146,6 +147,25 @@
             }
         });
   </script>
+
+
+<!-- <script>
+  // Hacemos una solicitud GET a la API de Type Fit Quotes para obtener una cita aleatoria
+  fetch('https://type.fit/api/quotes')
+    .then(response => response.json())
+    .then(data => {
+      // Selecciona una cita aleatoria de la lista de citas
+      var citaAleatoria = data[Math.floor(Math.random() * data.length)];
+      
+      // Muestra la cita en el elemento HTML
+      document.getElementById("cita").innerHTML = citaAleatoria.text + " - " + citaAleatoria.author;
+    })
+    .catch(error => {
+      // Si hay un error, muestra un mensaje en la consola
+      console.error('Error al obtener la cita:', error);
+    });
+</script> -->
+
     
   </body>
 </html>

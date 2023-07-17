@@ -1,8 +1,7 @@
 
 import os
 
-#SQL_ALCHEMY_DATABASE_URI= 'postgresql://admin:fGfcHAf0oaxvlpyPE2JkPk0vR2mcfXTE@dpg-cgiv000rjeniukbcmu0g-a/ibiblioteca_c8cw'
-SQL_ALCHEMY_DATABASE_URI= 'postgresql://admin:fGfcHAf0oaxvlpyPE2JkPk0vR2mcfXTE@dpg-cgiv000rjeniukbcmu0g-a.oregon-postgres.render.com/ibiblioteca_c8cw' 
+SQL_ALCHEMY_DATABASE_URI= '{CONFIGURE TU DB AQUI}' 
 
 
 
